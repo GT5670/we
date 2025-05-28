@@ -2,60 +2,54 @@
 <button id="openModalBtn" class="pf-v5-c-button pf-m-primary" type="button" style="margin: 2rem;">Show Modal</button>
 
 <!-- Modal Backdrop -->
-<div class="pf-v5-c-backdrop pf-m-hidden" id="modalBackdrop">
-  <div class="pf-v5-c-modal-box pf-m-md"
+<div id="modalBackdrop" class="pf-v5-c-backdrop pf-m-hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+  <div id="modalBox" class="pf-v5-c-modal-box pf-m-md"
        role="dialog" aria-modal="true"
-       aria-labelledby="modal-sm-title" aria-describedby="modal-sm-description"
-       style="z-index: 1000; background: white; border-radius: 6px; padding: 2rem; width: 500px; max-width: 90%; margin: auto; margin-top: 10%;">
+       aria-labelledby="modal-title" aria-describedby="modal-desc"
+       style="background: white; padding: 2rem; border-radius: 6px; max-width: 500px; width: 90%;">
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
-      <h1 class="pf-v5-c-modal-box__title" id="modal-sm-title">Modal title</h1>
-      <button class="pf-v5-c-button pf-m-plain" id="closeModalBtn" aria-label="Close">
+      <h1 id="modal-title">Modal title</h1>
+      <button id="closeModalBtn" class="pf-v5-c-button pf-m-plain" aria-label="Close">
         <i class="fas fa-times"></i>
       </button>
     </div>
-    
-    <div id="modal-sm-description" style="margin-top: 1rem;">
-      Static text describing modal purpose. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+    <div id="modal-desc" style="margin-top: 1rem;">
+      Static text describing modal purpose. Click outside this box or press "X" to close.
     </div>
   </div>
 </div>
 
 
-<!-- PatternFly Styles -->
-<link rel="stylesheet" href="https://www.patternfly.org/v4/styles/patternfly.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const openBtn = document.getElementById('openModalBtn');
     const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalBox = document.getElementById('modalBox');
     const closeBtn = document.getElementById('closeModalBtn');
 
     function showModal() {
         modalBackdrop.classList.remove('pf-m-hidden');
-        modalBackdrop.classList.add('pf-m-backdrop-open');
         document.body.classList.add('pf-v5-u-overflow-hidden');
     }
 
     function hideModal() {
         modalBackdrop.classList.add('pf-m-hidden');
-        modalBackdrop.classList.remove('pf-m-backdrop-open');
         document.body.classList.remove('pf-v5-u-overflow-hidden');
     }
 
     if (openBtn) openBtn.addEventListener('click', showModal);
     if (closeBtn) closeBtn.addEventListener('click', hideModal);
 
-    modalBackdrop.addEventListener('click', (event) => {
-        if (event.target === modalBackdrop) {
+    // Close when clicking outside the modal box
+    modalBackdrop.addEventListener('click', function (event) {
+        if (!modalBox.contains(event.target)) {
             hideModal();
         }
     });
 
-    document.addEventListener('keydown', (event) => {
+    // Close with ESC key
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             hideModal();
         }
