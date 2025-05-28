@@ -1,10 +1,93 @@
-site_name: 'Documentation'
+{% extends "base.html" %}
 
-nav:
-  - Home: index.md
-  - Source Component: source-component.md
-  - Pipelines: pipelines.md
-  - GitOps Application: gitops-application.md
+{% block heading %}
+<script src="{{ url_for('static', filename='scripts/pop.js') }}"></script>
+{% endblock %}
 
-plugins:
-  - techdocs-core
+{% block content %}
+<!-- Open Modal Button -->
+<button class="pf-v6-c-button pf-m-primary" id="openModalBtn">Open Modal</button>
+
+<!-- Modal Backdrop -->
+<div class="pf-v6-c-backdrop pf-m-hidden" id="modalBackdrop">
+  <div class="pf-v6-c-modal-box pf-m-sm"
+       role="dialog" aria-modal="true"
+       aria-labelledby="modal-sm-title" aria-describedby="modal-sm-description">
+
+    <div class="pf-v6-c-modal-box__close">
+      <button class="pf-v6-c-button pf-m-plain" type="button" id="closeModalBtn" aria-label="Close">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <header class="pf-v6-c-modal-box__header">
+      <h1 class="pf-v6-c-modal-box__title" id="modal-sm-title">Modal title</h1>
+    </header>
+
+    <div class="pf-v6-c-modal-box__body" id="modal-sm-description">
+      Static text describing modal purpose. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+    </div>
+
+    <footer class="pf-v6-c-modal-box__footer">
+      Modal footer
+    </footer>
+  </div>
+</div>
+{% endblock %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OPL</title>
+
+  <!-- PatternFly CSS -->
+  <link rel="stylesheet" href="https://www.patternfly.org/v4/styles/patternfly.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  {% block heading %}{% endblock %}
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>
+
+
+
+
+const openBtn = document.getElementById('openModalBtn');
+const modal = document.getElementById('modalBackdrop');
+const closeBtn = document.getElementById('closeModalBtn');
+
+// Open modal
+function showModal() {
+  modal.classList.remove('pf-m-hidden');
+  modal.classList.add('pf-m-open');
+  document.body.classList.add('pf-v6-u-overflow-hidden');
+}
+
+// Close modal
+function hideModal() {
+  modal.classList.add('pf-m-hidden');
+  modal.classList.remove('pf-m-open');
+  document.body.classList.remove('pf-v6-u-overflow-hidden');
+}
+
+openBtn?.addEventListener('click', showModal);
+closeBtn?.addEventListener('click', hideModal);
+
+// Close when clicking backdrop
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    hideModal();
+  }
+});
+
+// Close with ESC key
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    hideModal();
+  }
+});
