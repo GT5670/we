@@ -1,59 +1,54 @@
-<!-- Trigger Button -->
-<button id="openModalBtn" class="pf-v5-c-button pf-m-primary">Show Modal</button>
-
 <!-- PatternFly Modal -->
-<div id="modalBackdrop" class="pf-v5-c-backdrop pf-m-hidden" style="z-index: 9999;">
-  <div class="pf-v5-c-backdrop__open">
-    <div class="pf-v5-c-modal-box pf-m-md" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
-      
-      <div class="pf-v5-c-modal-box__header">
-        <h1 class="pf-v5-c-modal-box__title" id="modal-title">Modal title</h1>
-        <button class="pf-v5-c-button pf-m-plain" type="button" id="closeModalBtn" aria-label="Close">
-          <i class="fas fa-times" aria-hidden="true"></i>
-        </button>
-      </div>
+<div id="modalBackdrop" class="pf-v5-c-backdrop" style="z-index: 9999;">
+  <div class="pf-v5-c-modal-box pf-m-md" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    
+    <div class="pf-v5-c-modal-box__header">
+      <h1 class="pf-v5-c-modal-box__title" id="modal-title">Modal title</h1>
+      <button class="pf-v5-c-button pf-m-plain" type="button" id="closeModalBtn" aria-label="Close">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
 
-      <div class="pf-v5-c-modal-box__body" id="modal-desc">
-        Static text describing modal purpose. Click outside this box or press "X" or Escape to close.
-      </div>
+    <div class="pf-v5-c-modal-box__body" id="modal-desc">
+      This modal appears on page load. Click outside or press "X" or Escape to close.
+    </div>
 
-      <div class="pf-v5-c-modal-box__footer">
-        <button class="pf-v5-c-button pf-m-primary" id="closeModalFooterBtn" type="button">Close</button>
-      </div>
+    <div class="pf-v5-c-modal-box__footer">
+      <button class="pf-v5-c-button pf-m-primary" id="closeModalFooterBtn" type="button">Close</button>
     </div>
   </div>
 </div>
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const openBtn = document.getElementById("openModalBtn");
+  const modal = document.getElementById("modalBackdrop");
   const closeBtn = document.getElementById("closeModalBtn");
   const closeFooterBtn = document.getElementById("closeModalFooterBtn");
-  const modal = document.getElementById("modalBackdrop");
+  const modalBox = modal.querySelector(".pf-v5-c-modal-box");
 
   function showModal() {
-    modal.classList.remove("pf-m-hidden");
+    modal.style.display = "flex";
+    modal.style.alignItems = "center";
+    modal.style.justifyContent = "center";
     document.body.classList.add("pf-v5-u-overflow-hidden");
   }
 
   function hideModal() {
-    modal.classList.add("pf-m-hidden");
+    modal.style.display = "none";
     document.body.classList.remove("pf-v5-u-overflow-hidden");
   }
 
-  openBtn?.addEventListener("click", showModal);
+  showModal(); // 🔥 Show on load
+
   closeBtn?.addEventListener("click", hideModal);
   closeFooterBtn?.addEventListener("click", hideModal);
 
-  // Click outside the modal box
   modal.addEventListener("click", (event) => {
-    const modalBox = modal.querySelector(".pf-v5-c-modal-box");
     if (!modalBox.contains(event.target)) {
       hideModal();
     }
   });
 
-  // Esc key to close
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       hideModal();
