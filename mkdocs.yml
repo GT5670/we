@@ -1,186 +1,63 @@
-{% extends 'base.html' %}
+<!-- Trigger Button -->
+<button id="openModalBtn" class="pf-v5-c-button pf-m-primary" type="button" style="margin: 2rem;">Show Modal</button>
 
-{% block heading %}
-
-<section class="pf-v5-c-page__main-section pf-m-limit-width pf-m-light">
-    <div class="pf-v5-c-page__main-body">
-        <!-- PatternFly Grid Layout -->
-        <div class="pf-v5-l-grid pf-m-gutter" style="align-items: center;">
-            
-            <!-- Left Column: Text Content -->
-            <div class="pf-v5-l-grid__item pf-m-6-col" style="padding-right: 3rem;">
-                <div class="pf-v5-c-content">
-                    <h1>Red Hat Official Product List</h1>
-                    <p>
-                        The official Red Hat product names list (OPL) documents Brand- and Legal-approved names
-                        for Red Hat products, services, operators, components, features, portals, tools, and
-                        programs, determined in coordination with product teams and business units.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Right Column: Image with Soft Gradient -->
-            <div class="pf-v5-l-grid__item pf-m-6-col" style="position: relative;">
-                <div style="
-                    position: absolute;
-                    left: -20px; 
-                    width: 40px;
-                    height: 100%;
-                    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-                "></div>
-
-                <img src="{{ url_for('static', filename='images/home.svg') }}" 
-                     alt="Red Hat Official Product List"
-                     class="pf-v5-c-image"
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;">
-            </div>
-
-        </div>
+<!-- Modal Backdrop -->
+<div class="pf-v5-c-backdrop pf-m-hidden" id="modalBackdrop">
+  <div class="pf-v5-c-modal-box pf-m-md"
+       role="dialog" aria-modal="true"
+       aria-labelledby="modal-sm-title" aria-describedby="modal-sm-description"
+       style="z-index: 1000; background: white; border-radius: 6px; padding: 2rem; width: 500px; max-width: 90%; margin: auto; margin-top: 10%;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1 class="pf-v5-c-modal-box__title" id="modal-sm-title">Modal title</h1>
+      <button class="pf-v5-c-button pf-m-plain" id="closeModalBtn" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
-</section>
-{% endblock %}
-
-{% block content %}
-<!-- Row 2: Search by Portfolio and Core Platforms 
-<div class="pf-v5-c-page__main-section">
-    <div class="pf-v5-l-grid pf-m-gutter">
-        <div class="pf-v5-l-grid__item pf-m-6-col">
-            <div class="pf-v5-c-card">
-                <div class="pf-v5-c-card__header">
-                    <h3 class="pf-v5-c-title pf-m-lg">Search by portfolio</h3>
-                </div>
-                <div class="pf-v5-c-card__body">
-                    <div class="label-container">
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Cloud</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Linux platforms</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Management</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Application services</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Edge and AI</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Professional services</span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="pf-v5-l-grid__item pf-m-6-col">
-            <div class="pf-v5-c-card">
-                <div class="pf-v5-c-card__header">
-                    <h3 class="pf-v5-c-title pf-m-lg">Core platforms</h3>
-                </div>
-                <div class="pf-v5-c-card__body">
-                    <div class="label-container">
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Red Hat Enterprise Linux</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Red Hat OpenShift</span>
-                            </button>
-                        </span>
-                        <span class="pf-v5-c-label pf-m-blue">
-                            <button class="pf-v5-c-label__content" type="button">
-                                <span class="pf-v5-c-label__text">Red Hat Ansible Automation Platform</span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    <div id="modal-sm-description" style="margin-top: 1rem;">
+      Static text describing modal purpose. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </div>
-</div> -->
-
-<!-- Row 3: Additional Cards -->
-<div class="pf-v5-c-page__main-section">
-    <div class="pf-v5-l-grid pf-m-gutter">
-        <div class="pf-v5-l-grid__item pf-m-4-col">
-            <div class="pf-v5-c-card">
-                <div class="pf-v5-c-card__header">
-                    <h3 class="pf-v5-c-title pf-m-lg">Learn more about Red Hat's naming approach</h3>
-                </div>
-                <div class="pf-v5-c-card__body">
-                    <p>Each entry provides the full official name, as well as a brief description, guidance on approved
-                        and unapproved short names and acronyms, availability, links to additional resources, and
-                        metadata (such as parent product and portfolio).</p>
-                    <div class="button-container">
-                        <button class="pf-v5-c-button pf-m-secondary" type="button"><a href="https://source.redhat.com/departments/marketing/brand/naming">Naming foundations</a></button>
-                        <button class="pf-v5-c-button pf-m-secondary" type="button"><a href="{{ url_for('glossary_routes.glossary') }}">Glossary</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 
-        <div class="pf-v5-l-grid__item pf-m-4-col">
-            <div class="pf-v5-c-card">
-                <div class="pf-v5-c-card__header">
-                    <h3 class="pf-v5-c-title pf-m-lg">Keep up with product changes</h3>
-                </div>
-                <div class="pf-v5-c-card__body">
-                    <p>Every entry of the OPL includes a changelog for edits, corrections, and status updates. We’ve
-                        also collected them into a feed for quick reference.</p>
-                    <div class="button-container">
-                        <button class="pf-v5-c-button pf-m-secondary" type="button">View changelog</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <div class="pf-v5-l-grid__item pf-m-4-col">
-            <div class="pf-v5-c-card">
-                <div class="pf-v5-c-card__header">
-                    <h3 class="pf-v5-c-title pf-m-lg">Contact the Brand Design and Naming team</h3>
-                </div>
-                <div class="pf-v5-c-card__body">
-                    <p>Submit edits and corrections, request a new product name, get help with product names.</p>
-                    <ul class="pf-v5-c-list">
-                        <li>Submit edits and corrections</li>
-                        <li>Request a new product name</li>
-                        <li>Get help with product names</li>
-                    </ul>
-                    <div class="button-container">
-                        <button class="pf-v5-c-button pf-m-secondary" type="button"><a href="https://issues.redhat.com/secure/CreateIssue.jspa?pid=12348430">Need a fix or feature?</a></button>
-
-                        <button class="pf-v5-c-button pf-m-secondary" type="button"><a href="https://redhat.enterprise.slack.com/archives/C06956HE18S">Find us on slack</a></button>
-
-                        <button class="pf-v5-c-button pf-m-secondary" type="button"><a
-                                href="mailto:naming@redhat.com?subject=Inquiry">Email us</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
-{% endblock %}
 
-{% block footer %}
-<footer class="pf-v5-c-page__main-section pf-v5-c-title p-m-mf pf-u-text-muted">
-    <p>Red Hat confidential—Red Hat associates and approved NDA marketing
-        agencies only—No further distribution</p>
-</footer>
-{% endblock %}
+<!-- PatternFly Styles -->
+<link rel="stylesheet" href="https://www.patternfly.org/v4/styles/patternfly.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const openBtn = document.getElementById('openModalBtn');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function showModal() {
+        modalBackdrop.classList.remove('pf-m-hidden');
+        modalBackdrop.classList.add('pf-m-backdrop-open');
+        document.body.classList.add('pf-v5-u-overflow-hidden');
+    }
+
+    function hideModal() {
+        modalBackdrop.classList.add('pf-m-hidden');
+        modalBackdrop.classList.remove('pf-m-backdrop-open');
+        document.body.classList.remove('pf-v5-u-overflow-hidden');
+    }
+
+    if (openBtn) openBtn.addEventListener('click', showModal);
+    if (closeBtn) closeBtn.addEventListener('click', hideModal);
+
+    modalBackdrop.addEventListener('click', (event) => {
+        if (event.target === modalBackdrop) {
+            hideModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            hideModal();
+        }
+    });
+});
